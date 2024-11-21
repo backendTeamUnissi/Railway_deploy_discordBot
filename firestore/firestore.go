@@ -18,10 +18,10 @@ type FirestoreService struct {
     Client *firestore.Client
 }
 
-func InitFirestore(credentialsFile string) (*firestore.Client, error) {
+func InitFirestore(credentialsJSON string) (*firestore.Client, error) {
     ctx := context.Background()
 
-    client, err := firestore.NewClient(ctx, "peachtech-mokumoku", option.WithCredentialsFile(credentialsFile))
+    client, err := firestore.NewClient(ctx, "peachtech-mokumoku", option.WithCredentialsJSON([]byte(credentialsJSON)))
     if err != nil {
         return nil, fmt.Errorf("failed to create Firestore client: %w", err)
     }
@@ -29,6 +29,7 @@ func InitFirestore(credentialsFile string) (*firestore.Client, error) {
     log.Println("Firestore client initialized successfully")
     return client, nil
 }
+
 
 func NewFirestoreService(client *firestore.Client) *FirestoreService {
     return &FirestoreService{Client: client}
