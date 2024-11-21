@@ -31,9 +31,24 @@ func LoadConfig() (*Config, error) {
     }
 
     // 環境変数のバリデーション
-    if cfg.DiscordToken == "" || cfg.DiscordTextChannelID == "" || cfg.DiscordVoiceChannelID == "" || cfg.FirestoreCredentials == "" {
-        return nil, fmt.Errorf("one or more required environment variables are missing")
-    }
+	var missingVars []string
+
+	if cfg.DiscordToken == "" {
+		missingVars = append(missingVars, "DISCORD_TOKEN")
+	}
+	if cfg.DiscordTextChannelID == "" {
+		missingVars = append(missingVars, "DISCORD_TEXT_CHANNEL_ID")
+	}
+	if cfg.DiscordVoiceChannelID == "" {
+		missingVars = append(missingVars, "DISCORD_VOICE_CHANNEL_ID")
+	}
+	if cfg.FirestoreCredentials == "" {
+		missingVars = append(missingVars, "FIRESTORE_CREDENTIALS")
+	}
+	
+	if len(missingVars) > 0 {
+		return nil, fmt.Errorf("以下の必須環境変数が設定されていません: %s", strings.Join(missingVars, ", "))
+	}
 
     return cfg, nil
 }
