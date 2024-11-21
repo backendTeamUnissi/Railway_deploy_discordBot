@@ -18,10 +18,10 @@ type Config struct {
 
 func LoadConfig() (*Config, error) {
     // .env ファイルの読み込み
-    err := godotenv.Load()
-    if err != nil {
-        log.Println("No .env file found, reading environment variables")
-    }
+    // err := godotenv.Load()
+    // if err != nil {
+    //     log.Println("No .env file found, reading environment variables")
+    // }
 
     cfg := &Config{
         DiscordToken:          os.Getenv("DISCORDTOKEN"),
