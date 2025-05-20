@@ -17,7 +17,6 @@ func main() {
     if err != nil {
         log.Fatalf("Failed to load config: %v", err)
     }
-
     // Firestoreクライアントの初期化
     fsClient, err := firestore.InitFirestore(cfg.FirestoreCredentials)
     if err != nil {
